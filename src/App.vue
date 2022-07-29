@@ -6,10 +6,19 @@ import {
   Location,
   Setting,
 } from "@element-plus/icons-vue";
-
-import { ref } from "vue";
+import { ref, reactive, toRefs } from "vue";
 import type { TabsPaneContext } from "element-plus";
+import { ElMessageBox } from "element-plus";
 
+const state = reactive({
+  circleUrl:
+    "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+  squareUrl:
+    "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+  sizeList: ["small", "", "large"] as const,
+});
+
+const { circleUrl, squareUrl, sizeList } = toRefs(state);
 const activeName = ref("first");
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -25,6 +34,20 @@ const handleOpen = (key: string, keyPath: string[]) => {
 };
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
+};
+
+const openButton = () => {
+  ElMessageBox.alert("Voce clicou no avatar", "Avatar", {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: "OK",
+    // callback: () => {
+    //   ElMessage({
+    //     type: 'info',
+    //     message: `action: ${action}`,
+    //   })
+    // },
+  });
 };
 </script>
 
@@ -148,7 +171,7 @@ const handleClose = (key: string, keyPath: string[]) => {
         </div>
 
         <el-menu
-          active-text-color="#ffd04b"
+          active-text-color="rgb(226, 34, 146)"
           background-color="#545c64"
           class="el-menu-vertical-demo"
           default-active="2"
@@ -183,7 +206,7 @@ const handleClose = (key: string, keyPath: string[]) => {
           </el-menu-item>
           <el-menu-item index="4">
             <el-icon><setting /></el-icon>
-            <span><RouterLink to="/formulario">Layout</RouterLink></span>
+            <span><RouterLink to="/formulario">Formulario</RouterLink></span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -211,6 +234,20 @@ const handleClose = (key: string, keyPath: string[]) => {
                 <el-menu-item index="2-4-3">item three</el-menu-item>
               </el-sub-menu>
             </el-sub-menu>
+
+            <el-row class="demo-avatar demo-basic">
+              <el-col :span="12">
+                <div class="demo-basic--circle">
+                  <div class="block">
+                    <el-avatar
+                      :size="40"
+                      :src="circleUrl"
+                      @click="openButton"
+                    />
+                  </div>
+                </div>
+              </el-col>
+            </el-row>
           </el-menu>
         </el-header>
 
@@ -227,6 +264,10 @@ const handleClose = (key: string, keyPath: string[]) => {
   background: #444;
   color: white;
   min-height: 100vh;
+}
+
+.el-avatar {
+  margin: 10px;
 }
 .demo-tabs > .el-tabs__content {
   padding: 32px;
