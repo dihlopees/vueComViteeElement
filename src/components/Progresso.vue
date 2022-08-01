@@ -1,6 +1,28 @@
 <template>
-  <div class="demo-progress">
+  <!-- <div class="demo-progress">
     <el-progress type="dashboard" :percentage="percentage2" :color="colors" />
+  </div> -->
+
+  <div class="demo-progress">
+    <el-progress :text-inside="true" :stroke-width="26" :percentage="70" color="pink" />
+    <el-progress
+      :text-inside="true"
+      :stroke-width="24"
+      :percentage="100"
+      status="success"
+    />
+    <el-progress
+      :text-inside="true"
+      :stroke-width="22"
+      :percentage="80"
+      status="warning"
+    />
+    <el-progress
+      :text-inside="true"
+      :stroke-width="20"
+      :percentage="50"
+      status="exception"
+    />
   </div>
 </template>
 
